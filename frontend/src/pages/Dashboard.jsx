@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 
 import useShipments from "../hooks/useShipments";
+import { useShipmentContext } from "../context/useShipmentContext";
 import { calculateMetrics } from "../utils/dashboardMetrics";
 
 import Header from "../components/layout/Header";
@@ -25,7 +26,26 @@ export default function Dashboard() {
     error,
   } = useShipments();
 
-  const metrics = calculateMetrics(shipments);
+  const { searchQuery } = useShipmentContext();
+
+  const normalizedQuery = searchQuery
+    .trim()
+    .toLowerCase();
+
+  const filteredShipments = shipments.filter((shipment) => {
+    if (!normalizedQuery) {
+      return true;
+    }
+
+    return (
+      shipment.shipmentId?.toLowerCase().includes(normalizedQuery) ||
+      shipment.origin?.toLowerCase().includes(normalizedQuery) ||
+      shipment.destination?.toLowerCase().includes(normalizedQuery) ||
+      shipment.carrier?.toLowerCase().includes(normalizedQuery)
+    );
+  });
+
+  const metrics = calculateMetrics(filteredShipments);
 
   if (loading) {
     return <div>Loading shipments...</div>;
@@ -88,7 +108,7 @@ export default function Dashboard() {
 
         <Box mt={4}>
           <ShipmentGrid
-            shipments={shipments}
+            shipments={filteredShipments}
             loading={loading}
           />
         </Box>
