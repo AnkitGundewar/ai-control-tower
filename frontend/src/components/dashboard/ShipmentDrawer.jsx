@@ -1,20 +1,36 @@
 import {
-  Box,
-  Divider,
   Drawer,
-  Paper,
-  Stack,
+  Box,
   Typography,
+  Divider,
+  Stack,
 } from "@mui/material";
+
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineDot,
+  TimelineConnector,
+  TimelineContent,
+} from "@mui/lab";
 
 import StatusChip from "../common/StatusChip";
 import { useShipmentContext } from "../../context/useShipmentContext";
+import useShipmentEvents from "../../hooks/useShipmentEvents";
 
 export default function ShipmentDrawer() {
   const {
     selectedShipment,
     setSelectedShipment,
   } = useShipmentContext();
+
+  const {
+    events,
+    loading,
+  } = useShipmentEvents(
+    selectedShipment?.shipmentId
+  );
 
   return (
     <Drawer
@@ -24,173 +40,167 @@ export default function ShipmentDrawer() {
     >
       <Box
         sx={{
-          width: 420,
-          height: "100%",
+          width: 450,
           p: 3,
-          overflowY: "auto",
-          bgcolor: "background.default",
         }}
       >
         {!selectedShipment ? (
-          <Typography>No shipment selected.</Typography>
+          <Typography>
+            No shipment selected.
+          </Typography>
         ) : (
           <>
-            {/* ================================================= */}
-            {/* Header */}
-            {/* ================================================= */}
-
             <Typography
               variant="h5"
-              fontWeight={600}
+              gutterBottom
             >
               {selectedShipment.shipmentId}
             </Typography>
 
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mt: 0.5 }}
-            >
-              {selectedShipment.carrier}
-            </Typography>
-
-            <Divider sx={{ my: 3 }} />
-
-            {/* ================================================= */}
-            {/* Shipment Details */}
-            {/* ================================================= */}
+            <Divider sx={{ mb: 3 }} />
 
             <Stack spacing={2}>
-              <Paper
-                variant="outlined"
-                sx={{ p: 2 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                >
+
+              <Box>
+                <Typography variant="subtitle2">
                   Origin
                 </Typography>
 
-                <Typography variant="body1">
+                <Typography>
                   {selectedShipment.origin}
                 </Typography>
-              </Paper>
+              </Box>
 
-              <Paper
-                variant="outlined"
-                sx={{ p: 2 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                >
+              <Box>
+                <Typography variant="subtitle2">
                   Destination
                 </Typography>
 
-                <Typography variant="body1">
+                <Typography>
                   {selectedShipment.destination}
                 </Typography>
-              </Paper>
+              </Box>
 
-              <Paper
-                variant="outlined"
-                sx={{ p: 2 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                >
+              <Box>
+                <Typography variant="subtitle2">
+                  Carrier
+                </Typography>
+
+                <Typography>
+                  {selectedShipment.carrier}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="subtitle2">
+                  Current Location
+                </Typography>
+
+                <Typography>
+                  {selectedShipment.currentLocation}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="subtitle2">
                   ETA
                 </Typography>
 
-                <Typography variant="body1">
+                <Typography>
                   {selectedShipment.eta}
                 </Typography>
-              </Paper>
+              </Box>
 
-              <Paper
-                variant="outlined"
-                sx={{ p: 2 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                  gutterBottom
-                >
+              <Box>
+                <Typography variant="subtitle2">
+                  SLA Deadline
+                </Typography>
+
+                <Typography>
+                  {selectedShipment.slaDeadline}
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="subtitle2">
                   Status
                 </Typography>
 
                 <StatusChip
                   status={selectedShipment.status}
                 />
-              </Paper>
+              </Box>
 
-              <Paper
-                variant="outlined"
-                sx={{ p: 2 }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                >
+              <Box>
+                <Typography variant="subtitle2">
                   SLA Risk
                 </Typography>
 
-                <Typography
-                  variant="body1"
-                  fontWeight={600}
-                >
-                  {selectedShipment.slaRisk}
-                </Typography>
-              </Paper>
+                <StatusChip
+                  status={selectedShipment.slaRisk}
+                />
+              </Box>
+
             </Stack>
 
             <Divider sx={{ my: 4 }} />
 
-            {/* ================================================= */}
-            {/* AI Analysis */}
-            {/* ================================================= */}
-
             <Typography
               variant="h6"
               gutterBottom
             >
-              AI Analysis
+              Shipment Timeline
             </Typography>
 
-            <Paper
-              variant="outlined"
-              sx={{ p: 2 }}
-            >
-              <Typography color="text.secondary">
-                AI insights will appear here once the
-                Tracking Agent and Risk Agent are connected.
+            {loading ? (
+              <Typography>
+                Loading timeline...
               </Typography>
-            </Paper>
+            ) : (
+              <Timeline position="right">
 
-            <Divider sx={{ my: 4 }} />
+                {events.map((event, index) => (
+                  <TimelineItem key={index}>
 
-            {/* ================================================= */}
-            {/* Recommendations */}
-            {/* ================================================= */}
+                    <TimelineSeparator>
 
-            <Typography
-              variant="h6"
-              gutterBottom
-            >
-              Recommended Actions
-            </Typography>
+                      <TimelineDot />
 
-            <Paper
-              variant="outlined"
-              sx={{ p: 2 }}
-            >
-              <Typography color="text.secondary">
-                Recommendations will appear here after
-                AI analysis is complete.
-              </Typography>
-            </Paper>
+                      {index !== events.length - 1 && (
+                        <TimelineConnector />
+                      )}
+
+                    </TimelineSeparator>
+
+                    <TimelineContent>
+
+                      <Typography
+                        variant="subtitle2"
+                      >
+                        {event.eventType}
+                      </Typography>
+
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                      >
+                        {event.location}
+                      </Typography>
+
+                      <Typography
+                        variant="body2"
+                      >
+                        {event.details}
+                      </Typography>
+
+                    </TimelineContent>
+
+                  </TimelineItem>
+                ))}
+
+              </Timeline>
+            )}
+
           </>
         )}
       </Box>

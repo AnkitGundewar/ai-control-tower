@@ -1,9 +1,11 @@
+import { useMemo } from "react";
 import {
   Box,
   Container,
   Grid,
 } from "@mui/material";
 
+import useDashboard from "../hooks/useDashboard";
 import useShipments from "../hooks/useShipments";
 import { useShipmentContext } from "../context/useShipmentContext";
 import { calculateMetrics } from "../utils/dashboardMetrics";
@@ -26,29 +28,36 @@ export default function Dashboard() {
     error,
   } = useShipments();
 
+    const {
+    summary,
+    alerts,
+    loading: dashboardLoading,
+  } = useDashboard();
+
   const { searchQuery } = useShipmentContext();
 
-  const normalizedQuery = searchQuery
-    .trim()
-    .toLowerCase();
+  const normalizedQuery = searchQuery.trim().toLowerCase();
 
-  const filteredShipments = shipments.filter((shipment) => {
-    if (!normalizedQuery) {
-      return true;
-    }
+  const filteredShipments = useMemo(() => {
+  if (!normalizedQuery) {
+    return shipments;
+  }
 
-    return (
-      shipment.shipmentId?.toLowerCase().includes(normalizedQuery) ||
-      shipment.origin?.toLowerCase().includes(normalizedQuery) ||
-      shipment.destination?.toLowerCase().includes(normalizedQuery) ||
-      shipment.carrier?.toLowerCase().includes(normalizedQuery)
-    );
-  });
+  return shipments.filter((shipment) => (
+    shipment.shipmentId?.toLowerCase().includes(normalizedQuery) ||
+    shipment.origin?.toLowerCase().includes(normalizedQuery) ||
+    shipment.destination?.toLowerCase().includes(normalizedQuery) ||
+    shipment.carrier?.toLowerCase().includes(normalizedQuery) ||
+    shipment.status?.toLowerCase().includes(normalizedQuery) ||
+    shipment.slaRisk?.toLowerCase().includes(normalizedQuery) ||
+    shipment.currentLocation?.toLowerCase().includes(normalizedQuery)
+  ));
+}, [shipments, normalizedQuery]);
 
   const metrics = calculateMetrics(filteredShipments);
 
-  if (loading) {
-    return <div>Loading shipments...</div>;
+  if (loading || dashboardLoading) {
+    return <div>Loading dashboard...</div>;
   }
 
   if (error) {
@@ -121,11 +130,17 @@ export default function Dashboard() {
           mt={1}
         >
           <Grid size={{ xs: 12, md: 6 }}>
-            <AlertPanel />
+            <AlertPanel
+                alerts={alerts}
+                loading={dashboardLoading}
+            />
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <ExecutiveSummary />
+            <ExecutiveSummary
+                summary={summary}
+                loading={dashboardLoading}
+            />
           </Grid>
         </Grid>
 
