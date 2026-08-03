@@ -1,10 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+// import React from "react";
+import ReactDOM from "react-dom/client";
+import ShipmentProvider from "./context/ShipmentProvider";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+import { ThemeProvider } from "@mui/material/styles";
+
+import theme from "./theme/theme";
+
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+
+
+<ThemeProvider theme={theme}>
+  <ShipmentProvider>
     <App />
-  </StrictMode>,
-)
+  </ShipmentProvider>
+</ThemeProvider>
+);
