@@ -4,7 +4,10 @@ class Shipment(BaseModel):
     shipmentId: str
     origin: str
     destination: str
-    status : str
     carrier: str
+    status: str
+    currentLocation: str
     eta: str
-    estRisk: str
+    slaDeadline: str
+    slaRisk: str
+    delayReason: str

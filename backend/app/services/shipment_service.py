@@ -1,32 +1,15 @@
-from app.models.shipment import Shipment
+from app.repositories.shipment_repository import ShipmentRepository
 
-shipments = [
-    Shipment(
-        shipmentId="SHP-20034",
-        origin="Boston",
-        destination="London",
-        status="In Transit",
-        carrier="FedEx",
-        eta="2026-08-03T15:00:00Z",
-        estRisk="Low",
-    ),
-    Shipment(
-            shipmentId="SHP-20035",
-            origin="New York",
-            destination="Mumbai",
-            status="Delayed",
-            carrier="DHL",
-            eta="2026-08-07T09:00:00Z",
-            estRisk="High",
-        ),
-]
+
+repository = ShipmentRepository()
+
 
 def get_all_shipments():
-    return shipments
+    return repository.get_all_shipments()
+
 
 def get_shipment_by_id(shipment_id: str):
-    for shipment in shipments:
-        if shipment.shipmentId == shipment_id:
-            return shipment
+    return repository.get_shipment_by_id(shipment_id)
 
-    return None
+def get_events_for_shipment(shipment_id: str):
+    return repository.get_events_for_shipment(shipment_id)
