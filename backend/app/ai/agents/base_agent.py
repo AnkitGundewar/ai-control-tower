@@ -192,4 +192,6 @@ class BaseAgent(ABC):
                 retry_count + 1,
             )
 
+        response.metadata.validated = True
+
         return response

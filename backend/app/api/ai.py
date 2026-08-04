@@ -8,13 +8,13 @@ from app.ai.agents.root_cause_agent import RootCauseAgent
 from app.ai.agents.recommendation_agent import RecommendationAgent
 from app.ai.agents.executive_summary_agent import ExecutiveSummaryAgent
 
-from app.ai.clients.mock_llm_client import MockLLMClient
+from app.ai.clients.bedrock_client import BedrockClient
 
 from app.ai.models.agent_request import AgentRequest
 
 router = APIRouter(prefix="/ai", tags=["AI"])
 
-llm_client = MockLLMClient()
+llm_client = BedrockClient()
 
 tracking_agent = TrackingAgent(llm_client=None, guardrails=[], validators=[])
 risk_agent = RiskAgent(llm_client=llm_client, guardrails=[], validators=[])
