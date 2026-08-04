@@ -1,5 +1,5 @@
-from datetime import datetime
-from pydantic import BaseModel
+from datetime import datetime, timezone
+from pydantic import BaseModel, Field
 
 class TokenUsage(BaseModel):
     input_tokens: int = 0
@@ -13,5 +13,6 @@ class AgentMetadata(BaseModel):
     latency_ms: int = 0
     retry_count: int = 0
     validated: bool = False
-    token_usage: TokenUsage = TokenUsage()
-    timestamp: datetime = datetime.now(datetime.timezone.utc)()
+    token_usage: TokenUsage = Field(default_factory=TokenUsage,)
+
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc,),)

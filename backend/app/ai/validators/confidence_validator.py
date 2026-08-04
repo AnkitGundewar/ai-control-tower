@@ -11,6 +11,7 @@ class ConfidenceValidator(BaseValidator):
     
     def validate(self, response):
         confidence = response.metadata.confidence
+        
         if confidence < self.MIN_CONFIDENCE:
             return ValidationResult(
                 passed=False,
