@@ -3,9 +3,8 @@ class Settings(BaseSettings):
     APP_NAME: str = "AI Control Tower"
     AWS_REGION: str = "us-east-1"
     AWS_PROFILE: str = "default"
-    BEDROCK_MODEL_ID: str = (
-        "anthropic.claude-sonnet-4-20250514-v1:0"
-    )
+    CONTROL_TOWER_TABLE: str
+    BEDROCK_MODEL_ID: str 
     TEMPERATURE: float = 0.2
     MAX_TOKENS: int = 1500
     class Config:

@@ -1,21 +1,17 @@
 from fastapi import APIRouter
-
-from app.services.dashboard_service import (
-    get_dashboard_alerts,
-    get_executive_summary,
-)
+from app.dependencies import (dashboard_service)
 
 router = APIRouter(
     prefix="/dashboard",
     tags=["Dashboard"],
 )
 
-
 @router.get("/alerts")
 def alerts():
-    return get_dashboard_alerts()
+
+    return dashboard_service.get_dashboard_alerts()
 
 
 @router.get("/summary")
 def summary():
-    return get_executive_summary()
+    return dashboard_service.get_executive_summary()

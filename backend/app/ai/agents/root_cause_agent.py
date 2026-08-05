@@ -3,8 +3,11 @@ from app.ai.models.agent_request import AgentRequest
 from app.ai.utils.prompt_loader import PromptLoader
 
 class RootCauseAgent(BaseAgent):
+
     @property
-    def agent_name(self) -> str:
+    def agent_name(
+        self,
+    ) -> str:
         return "Root Cause Agent"
 
     def execute(
@@ -12,20 +15,44 @@ class RootCauseAgent(BaseAgent):
         request: AgentRequest,
     ) -> dict:
 
-        risk_analysis = request.payload.get("riskAnalysis")
-        
-        shipment = self.get_shipment(request)
-        system_prompt = PromptLoader.load("root_cause_prompt.txt")
+        tracking = request.payload["tracking"]
+
+        shipment = tracking["shipment"]
+        events = tracking["events"]
+
+        risk_analysis = request.payload[
+            "riskAnalysis"
+        ]
+
+        system_prompt = PromptLoader.load(
+            "root_cause_prompt.txt",
+        )
+
         user_prompt = f"""
-        Shipment ID: {shipment.shipmentId}
-        Origin: {shipment.origin}
-        Destination: {shipment.destination}
-        Current Location: {shipment.currentLocation}
-        Carrier: {shipment.carrier}
-        Status: {shipment.status}
-        ETA: {shipment.eta}
-        SLA Risk: {shipment.slaRisk}
-        Risk Analysis:{risk_analysis}
+        Shipment Information
+
+        Shipment ID: {shipment["shipmentId"]}
+        Origin: {shipment["origin"]}
+        Destination: {shipment["destination"]}
+        Current Location: {shipment["currentLocation"]}
+        Carrier: {shipment["carrier"]}
+        Status: {shipment["status"]}
+        ETA: {shipment["eta"]}
+        SLA Deadline: {shipment.get("slaDeadline")}
+        SLA Risk: {shipment["slaRisk"]}
+        Delay Reason: {shipment.get("delayReason")}
+
+        Shipment Events
+
+        {events}
+
+        Risk Analysis
+
+        {risk_analysis}
+
+        Determine the most likely root cause of the shipment risk using BOTH the shipment details and the shipment event history.
+
+        Return only valid JSON.
         """
 
         response = self.llm_client.generate(
@@ -34,6 +61,6 @@ class RootCauseAgent(BaseAgent):
         )
 
         return {
-            "shipmentId": shipment.shipmentId,
+            "shipmentId": shipment["shipmentId"],
             "rootCauseAnalysis": response,
         }

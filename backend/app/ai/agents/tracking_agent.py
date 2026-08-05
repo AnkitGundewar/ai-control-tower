@@ -1,11 +1,27 @@
 from app.ai.agents.base_agent import BaseAgent
 from app.ai.models.agent_request import AgentRequest
-
+from app.services.control_tower_service import (ControlTowerService)
 
 class TrackingAgent(BaseAgent):
+    def __init__(
+        self,
+        control_tower_service: ControlTowerService,
+        *args,
+        **kwargs,
+    ):
+        super().__init__(
+            *args,
+            **kwargs,
+        )
+
+        self.control_tower_service = (
+            control_tower_service
+        )
 
     @property
-    def agent_name(self) -> str:
+    def agent_name(
+        self,
+    ) -> str:
         return "Tracking Agent"
 
     def execute(
@@ -13,15 +29,17 @@ class TrackingAgent(BaseAgent):
         request: AgentRequest,
     ) -> dict:
 
-        shipment = self.get_shipment(request)
+        shipment_id = request.shipment_ids[0]
 
-        return {
-            "shipmentId": shipment.shipmentId,
-            "origin": shipment.origin,
-            "destination": shipment.destination,
-            "carrier": shipment.carrier,
-            "status": shipment.status,
-            "currentLocation": shipment.currentLocation,
-            "eta": shipment.eta,
-            "slaRisk": shipment.slaRisk,
-        }
+        context = (
+            self.control_tower_service.get_context(
+                shipment_id,
+            )
+        )
+
+        if context is None:
+            raise ValueError(
+                f"Shipment '{shipment_id}' not found."
+            )
+
+        return context.model_dump()

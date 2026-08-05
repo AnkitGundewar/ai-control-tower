@@ -3,17 +3,24 @@ from app.ai.models.agent_request import AgentRequest
 from app.ai.utils.prompt_loader import PromptLoader
 
 class ChatAgent(BaseAgent):
+
     def __init__(
         self,
         supervisor,
         *args,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            *args,
+            **kwargs,
+        )
+
         self.supervisor = supervisor
 
     @property
-    def agent_name(self) -> str:
+    def agent_name(
+        self,
+    ) -> str:
         return "Chat Agent"
 
     def execute(
@@ -21,9 +28,12 @@ class ChatAgent(BaseAgent):
         request: AgentRequest,
     ) -> dict:
 
-        question = request.payload.get("question")
+        question = request.payload.get(
+            "question",
+        )
 
         if question is None:
+
             raise ValueError(
                 "Question not found in request payload."
             )
@@ -32,16 +42,33 @@ class ChatAgent(BaseAgent):
             request,
         )
 
-        system_prompt = PromptLoader.load("chat_prompt.txt")
+        if not isinstance(
+            workflow_result,
+            dict,
+        ):
+            return workflow_result
+
+        system_prompt = PromptLoader.load(
+            "chat_prompt.txt",
+        )
+
         user_prompt = f"""
-User Question:
-{question}
+        User Question
 
-Workflow Results:
-{workflow_result}
+        {question}
 
-Respond to the user's question using ONLY the workflow results.
-"""
+        Workflow Results
+
+        {workflow_result}
+
+        Answer the user's question using ONLY the workflow results.
+
+        Do not invent shipment information.
+
+        If information is unavailable, explicitly state that it is unavailable.
+
+        Return only valid JSON.
+        """
 
         response = self.llm_client.generate(
             system_prompt=system_prompt,

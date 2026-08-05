@@ -7,13 +7,18 @@ from app.ai.clients.llm_client import LLMClient
 from app.ai.governance.guardrail_pipeline import GuardrailPipeline
 from app.ai.agents.recovery_agent import RecoveryAgent
 
-from app.ai.models.agent_error import (AgentError, ErrorType)
+from app.ai.models.agent_error import (
+    AgentError,
+    ErrorType,
+)
 
 from app.ai.models.agent_metadata import AgentMetadata
 from app.ai.models.agent_request import AgentRequest
 from app.ai.models.agent_response import AgentResponse
 
 from app.models.shipment import Shipment
+from app.models.shipment_event import ShipmentEvent
+
 
 class BaseAgent(ABC):
 
@@ -50,21 +55,74 @@ class BaseAgent(ABC):
         """
         pass
 
+    # ----------------------------------------------------
+    # Helpers
+    # ----------------------------------------------------
+
+    def get_tracking(
+        self,
+        request: AgentRequest,
+    ) -> dict:
+
+        tracking = request.payload.get(
+            "tracking",
+        )
+
+        if tracking is None:
+
+            raise ValueError(
+                "Tracking data not found in request payload."
+            )
+
+        return tracking
+
     def get_shipment(
         self,
         request: AgentRequest,
     ) -> Shipment:
 
-        shipment_data = request.payload.get("shipment")
+        tracking = self.get_tracking(
+            request,
+        )
 
-        if shipment_data is None:
+        shipment = tracking.get(
+            "shipment",
+        )
+
+        if shipment is None:
+
             raise ValueError(
-                "Shipment not found in request payload."
+                "Shipment not found in tracking payload."
             )
 
         return Shipment.model_validate(
-            shipment_data,
+            shipment,
         )
+
+    def get_events(
+        self,
+        request: AgentRequest,
+    ) -> list[ShipmentEvent]:
+
+        tracking = self.get_tracking(
+            request,
+        )
+
+        events = tracking.get(
+            "events",
+            [],
+        )
+
+        return [
+            ShipmentEvent.model_validate(
+                event,
+            )
+            for event in events
+        ]
+
+    # ----------------------------------------------------
+    # Pipeline
+    # ----------------------------------------------------
 
     def run(
         self,
@@ -84,12 +142,14 @@ class BaseAgent(ABC):
 
         start_time = perf_counter()
 
-        # --------------------------
+        #
         # Guardrails
-        # --------------------------
+        #
 
-        guardrail_results = self.guardrail_pipeline.validate(
-            request,
+        guardrail_results = (
+            self.guardrail_pipeline.validate(
+                request,
+            )
         )
 
         for result in guardrail_results:
@@ -121,13 +181,15 @@ class BaseAgent(ABC):
                     ],
                 )
 
-        # --------------------------
+        #
         # Execute
-        # --------------------------
+        #
 
         try:
 
-            payload = self.execute(request)
+            payload = self.execute(
+                request,
+            )
 
         except Exception as ex:
 
@@ -177,7 +239,9 @@ class BaseAgent(ABC):
         )
 
         validation_results = [
-            validator.validate(response)
+            validator.validate(
+                response,
+            )
             for validator in self.validators
         ]
 
