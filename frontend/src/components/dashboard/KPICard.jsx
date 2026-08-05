@@ -19,7 +19,7 @@ export default function KPICard({
         </Typography>
 
         <Typography
-          variant="h4"
+          variant="h3"
         >
           {value}
         </Typography>

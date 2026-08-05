@@ -18,6 +18,8 @@ import {
 import StatusChip from "../common/StatusChip";
 import { useShipmentContext } from "../../context/useShipmentContext";
 import useShipmentEvents from "../../hooks/useShipmentEvents";
+import ChatPanel from "../chat/ChatPanel";
+import AnalysisPanel from "./AnalysisPanel";
 
 export default function ShipmentDrawer() {
   const {
@@ -40,7 +42,7 @@ export default function ShipmentDrawer() {
     >
       <Box
         sx={{
-          width: 450,
+          width: 650,
           p: 3,
         }}
       >
@@ -200,6 +202,14 @@ export default function ShipmentDrawer() {
 
               </Timeline>
             )}
+
+            <Divider sx={{ my: 4 }} />
+
+            <AnalysisPanel />
+
+            <Divider sx={{ my: 4 }} />
+
+            <ChatPanel />
 
           </>
         )}

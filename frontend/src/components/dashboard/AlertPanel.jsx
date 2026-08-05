@@ -16,7 +16,9 @@ export default function AlertPanel({
       elevation={3}
       sx={{
         p: 3,
-        height: "100%",
+        height: 500,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Typography
@@ -30,7 +32,8 @@ export default function AlertPanel({
         <Box
           display="flex"
           justifyContent="center"
-          py={4}
+          alignItems="center"
+          flex={1}
         >
           <CircularProgress />
         </Box>
@@ -39,26 +42,47 @@ export default function AlertPanel({
           No active alerts.
         </Typography>
       ) : (
-        <Stack spacing={2}>
-          {alerts.map((alert, index) => (
-            <Alert
-              key={index}
-              severity={
-                alert.severity === "High"
-                  ? "error"
-                  : "warning"
-              }
-            >
-              <Typography fontWeight={600}>
-                {alert.title}
-              </Typography>
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+            pr: 1,
 
-              <Typography variant="body2">
-                {alert.description}
-              </Typography>
-            </Alert>
-          ))}
-        </Stack>
+            "&::-webkit-scrollbar": {
+              width: 8,
+            },
+
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#c7c7c7",
+              borderRadius: 4,
+            },
+
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "transparent",
+            },
+          }}
+        >
+          <Stack spacing={2}>
+            {alerts.map((alert, index) => (
+              <Alert
+                key={index}
+                severity={
+                  alert.severity === "High"
+                    ? "error"
+                    : "warning"
+                }
+              >
+                <Typography fontWeight={600}>
+                  {alert.title}
+                </Typography>
+
+                <Typography variant="body2">
+                  {alert.description}
+                </Typography>
+              </Alert>
+            ))}
+          </Stack>
+        </Box>
       )}
     </Paper>
   );

@@ -18,8 +18,7 @@ import ShipmentGrid from "../components/dashboard/ShipmentGrid";
 import ShipmentDrawer from "../components/dashboard/ShipmentDrawer";
 import AlertPanel from "../components/dashboard/AlertPanel";
 import ExecutiveSummary from "../components/dashboard/ExecutiveSummary";
-
-import ChatPanel from "../components/chat/ChatPanel";
+import GlobalChatPanel from "../components/chat/GlobalChatPanel";
 
 export default function Dashboard() {
   const {
@@ -131,24 +130,28 @@ export default function Dashboard() {
         >
           <Grid size={{ xs: 12, md: 6 }}>
             <AlertPanel
-                alerts={alerts}
-                loading={dashboardLoading}
+              alerts={alerts}
+              loading={dashboardLoading}
             />
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <ExecutiveSummary
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 3,
+              }}
+            >
+              <ExecutiveSummary
                 summary={summary}
                 loading={dashboardLoading}
-            />
+              />
+
+              <GlobalChatPanel />
+            </Box>
           </Grid>
         </Grid>
-
-        {/* ========================= CHAT ========================= */}
-
-        <Box mt={4}>
-          <ChatPanel />
-        </Box>
 
         {/* ========================= SHIPMENT DRAWER ========================= */}
 

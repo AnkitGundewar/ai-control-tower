@@ -14,7 +14,7 @@ export default function ExecutiveSummary({
       elevation={3}
       sx={{
         p: 3,
-        height: "100%",
+        height: 200,
       }}
     >
       <Typography
