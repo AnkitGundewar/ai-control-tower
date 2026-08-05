@@ -2,11 +2,12 @@ from app.ai.agents.base_agent import BaseAgent
 from app.ai.models.agent_request import AgentRequest
 from app.ai.utils.prompt_loader import PromptLoader
 
-class ChatAgent(BaseAgent):
+
+class DashboardChatAgent(BaseAgent):
 
     def __init__(
         self,
-        supervisor,
+        dashboard_service,
         *args,
         **kwargs,
     ):
@@ -15,13 +16,15 @@ class ChatAgent(BaseAgent):
             **kwargs,
         )
 
-        self.supervisor = supervisor
+        self.dashboard_service = (
+            dashboard_service
+        )
 
     @property
     def agent_name(
         self,
     ) -> str:
-        return "Chat Agent"
+        return "Dashboard Chat Agent"
 
     def execute(
         self,
@@ -38,21 +41,12 @@ class ChatAgent(BaseAgent):
                 "Question not found in request payload."
             )
 
-        workflow_result = self.supervisor.execute(
-            request,
+        dashboard_state = (
+            self.dashboard_service.get_dashboard_state()
         )
 
-        if not isinstance(
-            workflow_result,
-            dict,
-        ):
-            print(
-               workflow_result.model_dump_json(indent=2)
-            )
-            return {"answer": workflow_result.errors[0].message}
-
         system_prompt = PromptLoader.load(
-            "chat_prompt.txt",
+            "dashboard_ai_prompt.txt",
         )
 
         user_prompt = f"""
@@ -60,17 +54,17 @@ class ChatAgent(BaseAgent):
 
         {question}
 
-        Workflow Results
+        Dashboard State
 
-        {workflow_result}
+        {dashboard_state}
 
-        Answer the user's question using ONLY the workflow results.
+        Answer the user's question using ONLY the dashboard information.
 
         Do not invent shipment information.
 
         If information is unavailable, explicitly state that it is unavailable.
 
-        Return only valid JSON.
+        Return ONLY valid JSON.
         """
 
         response = self.llm_client.generate(

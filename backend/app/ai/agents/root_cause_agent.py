@@ -20,10 +20,6 @@ class RootCauseAgent(BaseAgent):
         shipment = tracking["shipment"]
         events = tracking["events"]
 
-        risk_analysis = request.payload[
-            "riskAnalysis"
-        ]
-
         system_prompt = PromptLoader.load(
             "root_cause_prompt.txt",
         )
@@ -46,11 +42,9 @@ class RootCauseAgent(BaseAgent):
 
         {events}
 
-        Risk Analysis
+        
 
-        {risk_analysis}
-
-        Determine the most likely root cause of the shipment risk using BOTH the shipment details and the shipment event history.
+        Determine the most likely root cause of the shipment issue using BOTH the shipment details and the shipment event history.
 
         Return only valid JSON.
         """

@@ -24,7 +24,6 @@ class PromptInjectionGuardrail(BaseGuardrail):
         "act as",
         "pretend to be",
         "jailbreak",
-        "bypass",
         "disable guardrails",
         "ignore guardrails",
         "override instructions",
@@ -41,11 +40,23 @@ class PromptInjectionGuardrail(BaseGuardrail):
         request: AgentRequest,
     ) -> ValidationResult:
 
-        payload = str(request.payload).lower()
+        #
+        # Only inspect user-controlled text.
+        #
+
+        user_text = " ".join(
+            str(value)
+            for key, value in request.payload.items()
+            if key in (
+                "question",
+                "message",
+                "prompt",
+            )
+        ).lower()
 
         for pattern in self.BLOCKED_PATTERNS:
 
-            if pattern in payload:
+            if pattern in user_text:
 
                 return ValidationResult(
                     passed=False,

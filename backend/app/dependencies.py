@@ -12,6 +12,8 @@ from app.ai.agents.risk_agent import (RiskAgent)
 from app.ai.agents.root_cause_agent import (RootCauseAgent)
 from app.ai.agents.recommendation_agent import (RecommendationAgent)
 from app.ai.agents.executive_summary_agent import (ExecutiveSummaryAgent)
+from app.ai.agents.dashboard_summary_agent import (DashboardSummaryAgent)
+from app.ai.agents.dashboard_chat_agent import (DashboardChatAgent)
 from app.ai.agents.supervisor import (Supervisor)
 
 from app.ai.governance.authorization_guardrail import AuthorizationGuardrail
@@ -44,7 +46,6 @@ control_tower_repository = (DynamoDBControlTowerRepository())
 # ==========================================================
 
 control_tower_service = (ControlTowerService(repository=control_tower_repository))
-dashboard_service = DashboardService(control_tower_service=control_tower_service)
 
 # ==========================================================
 # Governance
@@ -116,4 +117,22 @@ chat_agent = ChatAgent(
     llm_client=llm_client,
     guardrails=common_guardrails,
     validators=common_validators,
+)
+
+dashboard_summary_agent = DashboardSummaryAgent(
+    llm_client=llm_client,
+    validators=common_validators,
+    guardrails=common_guardrails,
+)
+
+dashboard_service = DashboardService(
+    control_tower_service=control_tower_service, 
+    dashboard_summary_agent=dashboard_summary_agent
+)
+
+dashboard_chat_agent = DashboardChatAgent(
+    dashboard_service=dashboard_service,
+    llm_client=llm_client,
+    validators=common_validators,
+    guardrails=common_guardrails,
 )

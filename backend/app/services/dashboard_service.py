@@ -1,13 +1,25 @@
-from app.services.control_tower_service import (ControlTowerService)
+from app.ai.models.agent_request import AgentRequest
+from app.services.control_tower_service import (
+    ControlTowerService,
+)
+from app.ai.agents.dashboard_summary_agent import (
+    DashboardSummaryAgent,
+)
+
 
 class DashboardService:
 
     def __init__(
         self,
         control_tower_service: ControlTowerService,
+        dashboard_summary_agent: DashboardSummaryAgent,
     ):
         self.control_tower_service = (
             control_tower_service
+        )
+
+        self.dashboard_summary_agent = (
+            dashboard_summary_agent
         )
 
     def get_dashboard_alerts(
@@ -44,7 +56,7 @@ class DashboardService:
 
         return alerts
 
-    def get_executive_summary(
+    def get_dashboard_context(
         self,
     ) -> dict:
 
@@ -52,51 +64,47 @@ class DashboardService:
             self.control_tower_service.get_all_shipments()
         )
 
-        total = len(shipments)
-
-        delivered = len(
-            [
-                shipment
-                for shipment in shipments
-                if shipment.status == "Delivered"
-            ]
-        )
-
-        delayed = len(
-            [
-                shipment
-                for shipment in shipments
-                if shipment.status == "Delayed"
-            ]
-        )
-
-        at_risk = len(
-            [
-                shipment
-                for shipment in shipments
-                if shipment.status == "At Risk"
-            ]
-        )
-
-        in_transit = len(
-            [
-                shipment
-                for shipment in shipments
-                if shipment.status == "In Transit"
-            ]
-        )
-
         return {
-            "summary": (
-                f"{total} shipments are currently being monitored. "
-                f"{delivered} have been delivered successfully, "
-                f"{in_transit} remain in transit, "
-                f"{delayed} are delayed, "
-                f"and {at_risk} are at risk of missing SLA."
-            )
+            "shipments": [
+                shipment.model_dump()
+                for shipment in shipments
+            ]
         }
 
-    def get_dashboard_state(self) -> dict:
+    def get_executive_summary(
+        self,
+    ) -> dict:
+
+        request = AgentRequest(
+            request_id="dashboard-summary",
+            correlation_id="dashboard-summary",
+            session_id="dashboard-summary",
+            user_role="operator",
+            shipment_ids=[],
+            payload={
+                "dashboardContext": (
+                    self.get_dashboard_context()
+                )
+            },
+        )
+
+        response = (
+            self.dashboard_summary_agent.run(
+                request,
+            )
+        )
+
+        if not response.success:
+
+            raise RuntimeError(
+                response.errors[0].message
+            )
+
+        return response.payload
+
+    def get_dashboard_state(
+        self,
+    ) -> dict:
 
         shipments = (
             self.control_tower_service.get_all_shipments()
@@ -137,5 +145,13 @@ class DashboardService:
                 "onTime": on_time,
             },
             "alerts": self.get_dashboard_alerts(),
-            "summary": self.get_executive_summary()["summary"],
+            "summary": (
+                self.get_executive_summary()[
+                    "summary"
+                ]
+            ),
+            "shipments":[
+                shipment.model_dump()
+                for shipment in shipments
+            ]
         }

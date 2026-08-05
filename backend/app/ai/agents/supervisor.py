@@ -74,10 +74,6 @@ class Supervisor:
             tracking_response.payload
         )
 
-        root_cause_request.payload["riskAnalysis"] = (
-            risk_response.payload
-        )
-
         root_cause_response = self.root_cause_agent.run(
             root_cause_request,
         )
