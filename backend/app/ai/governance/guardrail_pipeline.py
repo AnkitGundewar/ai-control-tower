@@ -1,8 +1,15 @@
+from app.ai.governance.base_guardrail import BaseGuardrail
+
 from app.ai.models.agent_request import AgentRequest
 from app.ai.models.validation_result import ValidationResult
 
+
 class GuardrailPipeline:
-    def __init__(self, guardrails):
+
+    def __init__(
+        self,
+        guardrails: list[BaseGuardrail],
+    ):
         self.guardrails = guardrails
 
     def validate(
@@ -10,9 +17,14 @@ class GuardrailPipeline:
         request: AgentRequest,
     ) -> list[ValidationResult]:
 
-        results = []
+        validation_results: list[ValidationResult] = []
+
         for guardrail in self.guardrails:
-            results.append(
-                guardrail.validate(request)
+
+            validation_results.append(
+                guardrail.validate(
+                    request,
+                )
             )
-        return results
+
+        return validation_results

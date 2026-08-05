@@ -1,29 +1,38 @@
-from app.ai.models.validation_result import (ValidationResult, Severity, RoutingDecision)
 from app.ai.governance.base_guardrail import BaseGuardrail
+from app.ai.models.agent_request import AgentRequest
+from app.ai.models.validation_result import (
+    ValidationResult,
+    Severity,
+    RoutingDecision,
+)
 
 
 class AuthorizationGuardrail(BaseGuardrail):
 
     ALLOWED_ROLES = {
-        "administrator"
         "operator",
         "manager",
         "executive",
+        "admin",
     }
 
     @property
-    def guardrail_name(self):
-        return "AuthorizationGuardrail"
+    def guardrail_name(self) -> str:
+        return "Authorization Guardrail"
 
-    def validate(self, request):
+    def validate(
+        self,
+        request: AgentRequest,
+    ) -> ValidationResult:
 
-        if request.user_role not in self.ALLOWED_ROLES:
+        role = (request.user_role or "").lower().strip()
 
+        if role not in self.ALLOWED_ROLES:
             return ValidationResult(
                 passed=False,
                 validator=self.guardrail_name,
                 severity=Severity.CRITICAL,
-                message="Unauthorized role.",
+                message=f"Unauthorized role: {role}",
                 retryable=False,
                 routing_decision=RoutingDecision.BLOCK,
             )

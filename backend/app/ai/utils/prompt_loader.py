@@ -4,8 +4,6 @@ class PromptLoader:
     """
     Loads prompt templates from the prompts directory.
 
-    Future:
-    - Amazon S3
     - Bedrock Prompt Management
     """
 

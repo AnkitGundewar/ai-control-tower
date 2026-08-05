@@ -3,9 +3,7 @@ from boto3.dynamodb.conditions import Key
 from app.config import settings
 from app.infrastructure.dynamodb_client import DynamoDBClient
 
-from app.models.control_tower_context import ControlTowerContext
-from app.models.shipment import Shipment
-from app.models.shipment_event import ShipmentEvent
+from app.models.control_tower_context import ControlTowerContext, Shipment, ShipmentEvent
 
 from app.repositories.control_tower_repository import (
     ControlTowerRepository,

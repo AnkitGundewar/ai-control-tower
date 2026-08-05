@@ -1,6 +1,5 @@
-from app.models.control_tower_context import (ControlTowerContext)
-from app.models.shipment import Shipment
-from app.repositories.control_tower_repository import (ControlTowerRepository)
+from app.models.control_tower_context import ControlTowerContext, Shipment
+from app.repositories.control_tower_repository import ControlTowerRepository
 
 class ControlTowerService:
     def __init__(

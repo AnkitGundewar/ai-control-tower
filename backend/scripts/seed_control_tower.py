@@ -5,8 +5,7 @@ import boto3
 
 from app.config import settings
 
-from app.models.shipment import Shipment
-from app.models.shipment_event import ShipmentEvent
+from app.models.control_tower_context import Shipment, ShipmentEvent
 
 
 def main():

@@ -16,8 +16,7 @@ from app.ai.models.agent_metadata import AgentMetadata
 from app.ai.models.agent_request import AgentRequest
 from app.ai.models.agent_response import AgentResponse
 
-from app.models.shipment import Shipment
-from app.models.shipment_event import ShipmentEvent
+from app.models.control_tower_context import Shipment, ShipmentEvent
 
 
 class BaseAgent(ABC):

@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.models.control_tower_context import ControlTowerContext
-from app.models.shipment import Shipment
+from app.models.control_tower_context import ControlTowerContext, Shipment
 
 class ControlTowerRepository(ABC):
 

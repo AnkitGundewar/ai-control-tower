@@ -95,3 +95,47 @@ class DashboardService:
                 f"and {at_risk} are at risk of missing SLA."
             )
         }
+
+    def get_dashboard_state(self) -> dict:
+
+        shipments = (
+            self.control_tower_service.get_all_shipments()
+        )
+
+        total = len(shipments)
+
+        delayed = len(
+            [
+                shipment
+                for shipment in shipments
+                if shipment.status == "Delayed"
+            ]
+        )
+
+        high_risk = len(
+            [
+                shipment
+                for shipment in shipments
+                if shipment.slaRisk == "High"
+            ]
+        )
+
+        on_time = (
+            0
+            if total == 0
+            else round(
+                ((total - delayed) / total) * 100,
+                1,
+            )
+        )
+
+        return {
+            "metrics": {
+                "total": total,
+                "delayed": delayed,
+                "highRisk": high_risk,
+                "onTime": on_time,
+            },
+            "alerts": self.get_dashboard_alerts(),
+            "summary": self.get_executive_summary()["summary"],
+        }
