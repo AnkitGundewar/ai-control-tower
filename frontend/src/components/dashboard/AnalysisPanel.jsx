@@ -72,7 +72,7 @@ export default function AnalysisPanel() {
         variant="h6"
         gutterBottom
       >
-        🤖 AI Analysis
+        📈 AI Analysis
       </Typography>
 
       <Button

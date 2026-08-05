@@ -16,7 +16,7 @@ export default function AlertPanel({
       elevation={3}
       sx={{
         p: 3,
-        height: 500,
+        height: 540,
         display: "flex",
         flexDirection: "column",
       }}

@@ -1,3 +1,4 @@
+import DashboardLoading from "../components/dashboard/DashboardLoading";
 import { useMemo } from "react";
 import {
   Box,
@@ -56,7 +57,7 @@ export default function Dashboard() {
   const metrics = calculateMetrics(filteredShipments);
 
   if (loading || dashboardLoading) {
-    return <div>Loading dashboard...</div>;
+    return <DashboardLoading />;
   }
 
   if (error) {

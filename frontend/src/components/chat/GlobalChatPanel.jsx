@@ -21,10 +21,20 @@ export default function GlobalChatPanel() {
 
   async function askAI() {
 
-    if (!question.trim()) {
+    if (loading || !question.trim()) {
       return;
     }
 
+    const userQuestion = question.trim();
+    setMessages((previous) => [
+          ...previous,
+          {
+            role: "user",
+            text: userQuestion,
+          },
+        ]);
+
+    setQuestion("");
     setLoading(true);
 
     try {
@@ -43,21 +53,21 @@ export default function GlobalChatPanel() {
         }
       );
 
+      const answer =
+        result.data.answer ??
+        result.data.payload?.answer ??
+        "No response returned.";
+
       setMessages((previous) => [
         ...previous,
         {
-          role: "user",
-          text: question,
-        },
-        {
           role: "assistant",
-          text: result.data.answer??
-                result.data.payload?.answer ??
-                "No response returned.",
+          text:
+            typeof answer === "string"
+              ? answer
+              : JSON.stringify(answer, null, 2),
         },
       ]);
-
-      setQuestion("");
 
     } catch {
 
@@ -83,7 +93,7 @@ export default function GlobalChatPanel() {
       elevation={3}
       sx={{
         p: 3,
-        height: 200,
+        height: 250,
         display: "flex",
         flexDirection: "column",
       }}
@@ -93,7 +103,7 @@ export default function GlobalChatPanel() {
         variant="h6"
         gutterBottom
       >
-        Global Supply Chain AI
+        🤖 Global Supply Chain AI
       </Typography>
 
       <Box
@@ -142,15 +152,15 @@ export default function GlobalChatPanel() {
               <Typography
                 fontWeight={600}
               >
-                {message.role === "user"
-                  ? "You"
-                  : "AI"}
+                {message.role === "user" ? "You: " : "Assistant: "}
               </Typography>
 
               <Typography
                 variant="body2"
               >
-                {message.text}
+                {typeof message.text === "string"
+                  ? message.text
+                  : JSON.stringify(message.text, null, 2)}
               </Typography>
 
             </Box>

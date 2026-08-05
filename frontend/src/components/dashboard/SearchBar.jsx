@@ -25,27 +25,54 @@ export default function SearchBar() {
       <TextField
         fullWidth
         variant="outlined"
-        label="Search Shipments"
         placeholder="Search by Shipment ID, Origin, Destination or Carrier"
         value={searchQuery}
         onChange={(event) => setSearchQuery(event.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-
-          endAdornment: searchQuery ? (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={handleClear}
-                edge="end"
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  mr: 1,
+                }}
               >
-                <ClearIcon />
-              </IconButton>
-            </InputAdornment>
-          ) : null,
+                <SearchIcon
+                  sx={{
+                    color: "primary.main",
+                    fontSize: 22,
+                  }}
+                />
+              </InputAdornment>
+            ),
+
+            endAdornment: searchQuery ? (
+              <InputAdornment
+                position="end"
+                sx={{
+                  ml: 1,
+                }}
+              >
+                <IconButton
+                  edge="end"
+                  onClick={handleClear}
+                  size="small"
+                >
+                  <ClearIcon
+                    sx={{
+                      color: "primary.main",
+                      fontSize: 22,
+                    }}
+                  />
+                </IconButton>
+              </InputAdornment>
+            ) : null,
+          },
+        }}
+        sx={{
+          "& .MuiInputBase-input": {
+            py: 1.6,
+          },
         }}
       />
     </Box>

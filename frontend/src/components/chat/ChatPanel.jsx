@@ -58,11 +58,28 @@ export default function ChatPanel() {
         }
       );
 
+      console.log("Shipment AI Response");
+      console.log(result.data);
+
+      if (!result.data.success) {
+        throw new Error(
+          result.data.errors?.[0]?.message ??
+            "Unknown AI error."
+        );
+      }
+
+      const answer =
+        result.data.payload?.answer ??
+        "No response returned.";
+
       setMessages((previous) => [
         ...previous,
         {
           role: "assistant",
-          text: result.data.payload.answer,
+          text:
+            typeof answer === "string"
+              ? answer
+              : JSON.stringify(answer, null, 2),
         },
       ]);
     } catch (error) {
@@ -72,7 +89,9 @@ export default function ChatPanel() {
         ...previous,
         {
           role: "assistant",
-          text: "Unable to retrieve an AI response.",
+          text:
+            error.message ??
+            "Unable to retrieve an AI response.",
         },
       ]);
     } finally {
@@ -91,7 +110,7 @@ export default function ChatPanel() {
       }}
     >
       <Typography variant="h6">
-        AI Chat
+        🤖 Shipment AI
       </Typography>
 
       <TextField
@@ -119,19 +138,17 @@ export default function ChatPanel() {
         }}
       />
 
-      <Box>
-        <Button
-          variant="contained"
-          onClick={askAI}
-          disabled={
-            loading ||
-            !selectedShipment ||
-            !question.trim()
-          }
-        >
-          Ask AI
-        </Button>
-      </Box>
+      <Button
+        variant="contained"
+        onClick={askAI}
+        disabled={
+          loading ||
+          !selectedShipment ||
+          !question.trim()
+        }
+      >
+        Ask AI
+      </Button>
 
       <Box
         sx={{
@@ -150,23 +167,24 @@ export default function ChatPanel() {
         )}
 
         {messages.map((message, index) => (
-          <Box
-            key={index}
-            sx={{
-              mb: 2,
-            }}
-          >
+          <Box key={index} sx={{ mb: 2 }}>
             <Typography
               variant="subtitle2"
               fontWeight="bold"
             >
               {message.role === "user"
-                ? "You: "
-                : "AI: "}
+                ? "You:"
+                : "Assistant:"}
             </Typography>
 
             <Typography variant="body2">
-              {message.text}
+              {typeof message.text === "string"
+                ? message.text
+                : JSON.stringify(
+                    message.text,
+                    null,
+                    2
+                  )}
             </Typography>
           </Box>
         ))}

@@ -9,7 +9,7 @@ export default function KPICard({
   value,
 }) {
   return (
-    <Card elevation={3}>
+    <Card elevation={5}>
       <CardContent>
 
         <Typography
@@ -19,7 +19,7 @@ export default function KPICard({
         </Typography>
 
         <Typography
-          variant="h3"
+          variant="h4"
         >
           {value}
         </Typography>

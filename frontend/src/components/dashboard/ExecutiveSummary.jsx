@@ -3,6 +3,7 @@ import {
   Typography,
   CircularProgress,
   Box,
+  Divider,
 } from "@mui/material";
 
 export default function ExecutiveSummary({
@@ -14,28 +15,53 @@ export default function ExecutiveSummary({
       elevation={3}
       sx={{
         p: 3,
-        height: 200,
+        minHeight: 220,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Typography
         variant="h6"
-        gutterBottom
+        fontWeight={600}
       >
-        Executive Summary
+        📈 Executive Summary
       </Typography>
+
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        sx={{
+          mt: 0.5,
+        }}
+      >
+        AI-generated operational overview
+      </Typography>
+
+      <Divider
+        sx={{
+          my: 1,
+        }}
+      />
 
       {loading ? (
         <Box
-          display="flex"
-          justifyContent="center"
-          py={4}
+          sx={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <CircularProgress />
         </Box>
       ) : (
         <Typography
-          color="text.secondary"
-          lineHeight={1.8}
+          variant="body2"
+          sx={{
+            color: "text.primary",
+            lineHeight: 1.5,
+            whiteSpace: "pre-line",
+          }}
         >
           {summary}
         </Typography>
