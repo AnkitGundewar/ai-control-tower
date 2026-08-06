@@ -77,8 +77,8 @@ http://127.0.0.1:8000/docs
 
 The backend provides:
 
-- Shipment APIs
-- AI Analysis APIs
+- Shipment Management APIs
+- Shipment AI Analysis APIs
 - Executive Summary APIs
 - Dashboard APIs
 - AI Chat APIs
@@ -134,24 +134,28 @@ Selecting a shipment opens a detailed drawer containing:
 - Executive Summary
 - Shipment-specific AI Chat
 
+# Application Architecture
 
-                                   S3
+Shipment datasets are uploaded to Amazon S3 and ingested into DynamoDB through an AWS Lambda function. The dashboard consumes this centralized data source through the FastAPI backend while the same dataset also powers the event-driven monitoring workflow.
+
+
+                              Amazon S3
                                    │
                                    ▼
                            Ingestion Lambda
                                    │
                                    ▼
-                            DynamoDB Table
+                         Amazon DynamoDB Table
                                    │
                                    ▼
-                                FastAPI
+                            FastAPI Backend
                                    │
                                    ▼
                              Supervisor
                                    │
       ┌────────────────────────────┼────────────────────────────┐
       │                            │                            │
-      ▼                            ▼                            ▼                           
+      ▼                            ▼                            ▼         
       Tracking Agent              Risk Agent               Root Cause Agent
       │                            │                            │
       └────────────────────────────┴┬───────────────────────────┘
@@ -171,6 +175,22 @@ Selecting a shipment opens a detailed drawer containing:
                                     ▼
                          React Dashboard Components
 
+### AI Workflow Design
+
+The AI workflow follows a modular orchestration pattern where each agent has a single, well-defined responsibility. Rather than relying on a single large prompt to perform every analytical task, the system delegates specific responsibilities to specialized AI agents.
+
+Each agent focuses exclusively on its designated task—tracking, risk assessment, root cause analysis, recommendation generation, executive summarization, or conversational assistance. This modular design improves maintainability, enables individual prompts to evolve independently, and produces structured outputs that can be reused across multiple application workflows.
+
+The Supervisor coordinates these specialized agents, ensuring that analytical context is progressively enriched while keeping each agent isolated from responsibilities outside its domain.
+
+### Key Design Principles
+
+- **Single Responsibility:** Each AI agent performs one specialized analytical task.
+- **Modular Orchestration:** The Supervisor coordinates agent execution while keeping individual agents focused on their own responsibility.
+- **Structured AI Outputs:** Every agent produces structured JSON responses that can be consumed by downstream application components.
+- **Separation of Concerns:** Business orchestration is handled by the Supervisor, while individual agents are responsible only for their specific analytical task.
+- **Reusable AI Components:** The same AI orchestration layer is used by both the interactive dashboard and the autonomous event-driven workflow.
+
 ---
 ## Event-Driven Architecture
 
@@ -178,23 +198,25 @@ The AI Control Tower includes a fully serverless event-driven workflow that auto
 
 The workflow begins when shipment data is uploaded to Amazon S3. An Ingestion Lambda processes the uploaded dataset and stores the shipment records in Amazon DynamoDB.
 
-Every shipment record written to or modified in Amazon DynamoDB generates a DynamoDB Stream event. Since the Ingestion Lambda persists uploaded shipment data into DynamoDB, both newly ingested shipments and subsequent updates automatically enter the event-driven workflow. These events are forwarded to Amazon EventBridge Pipes, which filter and route only the relevant shipment updates to the Supervisor Lambda.
+Every shipment record written to or modified in Amazon DynamoDB generates a DynamoDB Stream event. 
 
-The Supervisor Lambda acts as the entry point into the AI orchestration layer. Rather than performing the analysis itself, it delegates execution to the **Supervisor**, which coordinates the specialized AI agents responsible for different aspects of shipment analysis.
+Since the Ingestion Lambda persists uploaded shipment data into DynamoDB, both newly ingested shipments and subsequent updates automatically enter the event-driven workflow. These events are forwarded to Amazon EventBridge Pipes, which filter and route only the relevant shipment updates to the Supervisor Lambda.
 
-The Supervisor invokes three independent analysis agents:
+The Supervisor Lambda serves as the entry point into the AI orchestration layer. It initializes the **Supervisor**, which coordinates the execution of specialized AI agents responsible for shipment analysis.
+
+The Supervisor orchestrates the AI workflow by coordinating three specialized analysis agents, each responsible for evaluating a different aspect of the shipment:
 
 - **Tracking Agent** – Retrieves and structures shipment tracking information.
 - **Risk Agent** – Evaluates shipment risk based on the available shipment context.
 - **Root Cause Agent** – Determines the most likely operational cause affecting the shipment.
 
-Once these analyses complete successfully, the **Recommendation Agent** combines their outputs to generate actionable recommendations for logistics operators.
+After the tracking, risk, and root cause analyses complete, the **Recommendation Agent** combines their outputs to generate actionable recommendations for logistics operators.
 
-Finally, the **Executive Summary Agent** synthesizes all preceding analyses into a concise operational summary suitable for business stakeholders.
+Finally, the **Executive Summary Agent** consolidates the outputs of the preceding agents into a concise, executive-level summary suitable for operational stakeholders and downstream notification services.
 
 After the AI workflow completes, the Supervisor Lambda asynchronously invokes the Notification Lambda. The Notification Lambda formats the executive summary into a notification and publishes it to an Amazon SNS topic. Amazon SNS then distributes the notification to all subscribed recipients via email.
 
-This architecture enables shipment updates to be analyzed automatically as they occur, allowing stakeholders to receive AI-generated insights and recommendations without interacting directly with the dashboard application.
+This architecture enables shipment updates to be analyzed automatically as they occur, allowing shipment events to be analyzed and communicated automatically without requiring users to manually initiate the AI workflow through the dashboard.
 
 ### Workflow
 
@@ -234,3 +256,11 @@ This architecture enables shipment updates to be analyzed automatically as they 
                                 │
                                 ▼
                     Email Notification Subscription
+
+
+This architecture demonstrates two complementary execution models within the AI Control Tower:
+
+- **Interactive AI**, where users request analyses through the dashboard.
+- **Event-driven AI**, where shipment updates automatically trigger autonomous analysis and stakeholder notifications.
+
+Together, these workflows provide both on-demand operational intelligence and proactive monitoring capabilities while sharing a common AI orchestration layer.
