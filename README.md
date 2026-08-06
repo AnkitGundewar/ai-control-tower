@@ -3,15 +3,17 @@ and simply give you small commands to run different aspects of this project in y
 
 ###
 Setup
+---
 ###
 
 Just clone this repository as it is and I'll give terminal commands from there. 
 
 P.S.: This project uses Amazon services but if you're just building the dashboard - You only require a DynamoDB table (or a local dataset repository) and any model from Amazon Bedrock. I have used "anthropic.claude-sonnet-4-6" but you can choose whichever model you want.
 
-###
+##
 Backend
-###
+---
+##
 If you're running this locally and just want a backend for your dashboard and nothing more than that. 
 From the project root:
 cd backend
@@ -22,9 +24,10 @@ unicorn app.main:app --reload
 
 Click on the link/docs (http://127.0.0.1:8000/docs) and you can test and debug different backend features. 
 
-###
+##
 Frontend
-###
+---
+##
 Rejoice. You don't have to deal with a virtual environment here. From project root:
 
 cd frontend 
