@@ -1,0 +1,710 @@
+[
+  {
+    "PK": "SHIPMENT#SHP-20034",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20034",
+    "origin": "Boston",
+    "destination": "London",
+    "carrier": "FedEx",
+    "status": "In Transit",
+    "currentLocation": "New York Hub",
+    "eta": "2026-08-03T15:00:00Z",
+    "slaDeadline": "2026-08-03T18:00:00Z",
+    "slaRisk": "Low",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20034",
+    "SK": "EVENT#2026-08-01T08:00:00Z",
+    "shipmentId": "SHP-20034",
+    "timestamp": "2026-08-01T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Boston",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20034",
+    "SK": "EVENT#2026-08-01T10:00:00Z",
+    "shipmentId": "SHP-20034",
+    "timestamp": "2026-08-01T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Boston",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20034",
+    "SK": "EVENT#2026-08-01T12:00:00Z",
+    "shipmentId": "SHP-20034",
+    "timestamp": "2026-08-01T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Boston",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20034",
+    "SK": "EVENT#2026-08-01T16:00:00Z",
+    "shipmentId": "SHP-20034",
+    "timestamp": "2026-08-01T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "New York Hub",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20034",
+    "SK": "EVENT#2026-08-01T20:00:00Z",
+    "shipmentId": "SHP-20034",
+    "timestamp": "2026-08-01T20:00:00Z",
+    "eventType": "Current Status",
+    "location": "New York Hub",
+    "details": "In Transit"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20035",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20035",
+    "origin": "New York",
+    "destination": "Mumbai",
+    "carrier": "DHL",
+    "status": "Delayed",
+    "currentLocation": "Frankfurt",
+    "eta": "2026-08-07T10:00:00Z",
+    "slaDeadline": "2026-08-06T18:00:00Z",
+    "slaRisk": "High",
+    "delayReason": "Customs inspection"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20035",
+    "SK": "EVENT#2026-08-02T08:00:00Z",
+    "shipmentId": "SHP-20035",
+    "timestamp": "2026-08-02T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "New York",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20035",
+    "SK": "EVENT#2026-08-02T10:00:00Z",
+    "shipmentId": "SHP-20035",
+    "timestamp": "2026-08-02T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "New York",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20035",
+    "SK": "EVENT#2026-08-02T12:00:00Z",
+    "shipmentId": "SHP-20035",
+    "timestamp": "2026-08-02T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "New York",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20035",
+    "SK": "EVENT#2026-08-02T16:00:00Z",
+    "shipmentId": "SHP-20035",
+    "timestamp": "2026-08-02T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Frankfurt",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20035",
+    "SK": "EVENT#2026-08-02T20:00:00Z",
+    "shipmentId": "SHP-20035",
+    "timestamp": "2026-08-02T20:00:00Z",
+    "eventType": "Delay Reported",
+    "location": "Frankfurt",
+    "details": "Customs inspection"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20036",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20036",
+    "origin": "Chicago",
+    "destination": "Tokyo",
+    "carrier": "UPS",
+    "status": "Delayed",
+    "currentLocation": "Denver",
+    "eta": "2026-08-06T21:00:00Z",
+    "slaDeadline": "2026-08-06T08:00:00Z",
+    "slaRisk": "High",
+    "delayReason": "Severe weather"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20036",
+    "SK": "EVENT#2026-08-03T08:00:00Z",
+    "shipmentId": "SHP-20036",
+    "timestamp": "2026-08-03T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Chicago",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20036",
+    "SK": "EVENT#2026-08-03T10:00:00Z",
+    "shipmentId": "SHP-20036",
+    "timestamp": "2026-08-03T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Chicago",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20036",
+    "SK": "EVENT#2026-08-03T12:00:00Z",
+    "shipmentId": "SHP-20036",
+    "timestamp": "2026-08-03T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Chicago",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20036",
+    "SK": "EVENT#2026-08-03T16:00:00Z",
+    "shipmentId": "SHP-20036",
+    "timestamp": "2026-08-03T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Denver",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20036",
+    "SK": "EVENT#2026-08-03T20:00:00Z",
+    "shipmentId": "SHP-20036",
+    "timestamp": "2026-08-03T20:00:00Z",
+    "eventType": "Delay Reported",
+    "location": "Denver",
+    "details": "Severe weather"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20037",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20037",
+    "origin": "Dallas",
+    "destination": "Berlin",
+    "carrier": "FedEx",
+    "status": "In Transit",
+    "currentLocation": "Dallas",
+    "eta": "2026-08-05T20:00:00Z",
+    "slaDeadline": "2026-08-06T18:00:00Z",
+    "slaRisk": "Low",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20037",
+    "SK": "EVENT#2026-08-01T08:00:00Z",
+    "shipmentId": "SHP-20037",
+    "timestamp": "2026-08-01T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Dallas",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20037",
+    "SK": "EVENT#2026-08-01T10:00:00Z",
+    "shipmentId": "SHP-20037",
+    "timestamp": "2026-08-01T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Dallas",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20037",
+    "SK": "EVENT#2026-08-01T12:00:00Z",
+    "shipmentId": "SHP-20037",
+    "timestamp": "2026-08-01T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Dallas",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20037",
+    "SK": "EVENT#2026-08-01T16:00:00Z",
+    "shipmentId": "SHP-20037",
+    "timestamp": "2026-08-01T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Dallas",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20037",
+    "SK": "EVENT#2026-08-01T20:00:00Z",
+    "shipmentId": "SHP-20037",
+    "timestamp": "2026-08-01T20:00:00Z",
+    "eventType": "Current Status",
+    "location": "Dallas",
+    "details": "In Transit"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20038",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20038",
+    "origin": "Los Angeles",
+    "destination": "Singapore",
+    "carrier": "UPS",
+    "status": "At Risk",
+    "currentLocation": "San Francisco",
+    "eta": "2026-08-07T04:00:00Z",
+    "slaDeadline": "2026-08-06T18:00:00Z",
+    "slaRisk": "High",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20038",
+    "SK": "EVENT#2026-08-02T08:00:00Z",
+    "shipmentId": "SHP-20038",
+    "timestamp": "2026-08-02T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Los Angeles",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20038",
+    "SK": "EVENT#2026-08-02T10:00:00Z",
+    "shipmentId": "SHP-20038",
+    "timestamp": "2026-08-02T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Los Angeles",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20038",
+    "SK": "EVENT#2026-08-02T12:00:00Z",
+    "shipmentId": "SHP-20038",
+    "timestamp": "2026-08-02T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Los Angeles",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20038",
+    "SK": "EVENT#2026-08-02T16:00:00Z",
+    "shipmentId": "SHP-20038",
+    "timestamp": "2026-08-02T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "San Francisco",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20038",
+    "SK": "EVENT#2026-08-02T20:00:00Z",
+    "shipmentId": "SHP-20038",
+    "timestamp": "2026-08-02T20:00:00Z",
+    "eventType": "SLA Risk Identified",
+    "location": "San Francisco",
+    "details": "At Risk"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20039",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20039",
+    "origin": "Toronto",
+    "destination": "Paris",
+    "carrier": "FedEx",
+    "status": "Delivered",
+    "currentLocation": "Paris",
+    "eta": "2026-08-04T14:00:00Z",
+    "slaDeadline": "2026-08-05T00:00:00Z",
+    "slaRisk": "Low",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20039",
+    "SK": "EVENT#2026-08-03T08:00:00Z",
+    "shipmentId": "SHP-20039",
+    "timestamp": "2026-08-03T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Toronto",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20039",
+    "SK": "EVENT#2026-08-03T10:00:00Z",
+    "shipmentId": "SHP-20039",
+    "timestamp": "2026-08-03T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Toronto",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20039",
+    "SK": "EVENT#2026-08-03T12:00:00Z",
+    "shipmentId": "SHP-20039",
+    "timestamp": "2026-08-03T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Toronto",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20039",
+    "SK": "EVENT#2026-08-03T16:00:00Z",
+    "shipmentId": "SHP-20039",
+    "timestamp": "2026-08-03T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Paris",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20039",
+    "SK": "EVENT#2026-08-03T20:00:00Z",
+    "shipmentId": "SHP-20039",
+    "timestamp": "2026-08-03T20:00:00Z",
+    "eventType": "Delivered",
+    "location": "Paris",
+    "details": "Delivered"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20040",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20040",
+    "origin": "Houston",
+    "destination": "Rotterdam",
+    "carrier": "Maersk",
+    "status": "Delayed",
+    "currentLocation": "Shanghai Port",
+    "eta": "2026-08-08T10:00:00Z",
+    "slaDeadline": "2026-08-06T20:00:00Z",
+    "slaRisk": "High",
+    "delayReason": "Port congestion"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20040",
+    "SK": "EVENT#2026-08-01T08:00:00Z",
+    "shipmentId": "SHP-20040",
+    "timestamp": "2026-08-01T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Houston",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20040",
+    "SK": "EVENT#2026-08-01T10:00:00Z",
+    "shipmentId": "SHP-20040",
+    "timestamp": "2026-08-01T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Houston",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20040",
+    "SK": "EVENT#2026-08-01T12:00:00Z",
+    "shipmentId": "SHP-20040",
+    "timestamp": "2026-08-01T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Houston",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20040",
+    "SK": "EVENT#2026-08-01T16:00:00Z",
+    "shipmentId": "SHP-20040",
+    "timestamp": "2026-08-01T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Shanghai Port",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20040",
+    "SK": "EVENT#2026-08-01T20:00:00Z",
+    "shipmentId": "SHP-20040",
+    "timestamp": "2026-08-01T20:00:00Z",
+    "eventType": "Delay Reported",
+    "location": "Shanghai Port",
+    "details": "Port congestion"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20041",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20041",
+    "origin": "Singapore",
+    "destination": "Sydney",
+    "carrier": "DHL",
+    "status": "In Transit",
+    "currentLocation": "Singapore",
+    "eta": "2026-08-06T12:00:00Z",
+    "slaDeadline": "2026-08-07T00:00:00Z",
+    "slaRisk": "Low",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20041",
+    "SK": "EVENT#2026-08-02T08:00:00Z",
+    "shipmentId": "SHP-20041",
+    "timestamp": "2026-08-02T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Singapore",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20041",
+    "SK": "EVENT#2026-08-02T10:00:00Z",
+    "shipmentId": "SHP-20041",
+    "timestamp": "2026-08-02T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Singapore",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20041",
+    "SK": "EVENT#2026-08-02T12:00:00Z",
+    "shipmentId": "SHP-20041",
+    "timestamp": "2026-08-02T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Singapore",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20041",
+    "SK": "EVENT#2026-08-02T16:00:00Z",
+    "shipmentId": "SHP-20041",
+    "timestamp": "2026-08-02T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Singapore",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20041",
+    "SK": "EVENT#2026-08-02T20:00:00Z",
+    "shipmentId": "SHP-20041",
+    "timestamp": "2026-08-02T20:00:00Z",
+    "eventType": "Current Status",
+    "location": "Singapore",
+    "details": "In Transit"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20042",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20042",
+    "origin": "Miami",
+    "destination": "São Paulo",
+    "carrier": "Amazon Logistics",
+    "status": "In Transit",
+    "currentLocation": "Istanbul",
+    "eta": "2026-08-06T18:00:00Z",
+    "slaDeadline": "2026-08-07T08:00:00Z",
+    "slaRisk": "Low",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20042",
+    "SK": "EVENT#2026-08-03T08:00:00Z",
+    "shipmentId": "SHP-20042",
+    "timestamp": "2026-08-03T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Miami",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20042",
+    "SK": "EVENT#2026-08-03T10:00:00Z",
+    "shipmentId": "SHP-20042",
+    "timestamp": "2026-08-03T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Miami",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20042",
+    "SK": "EVENT#2026-08-03T12:00:00Z",
+    "shipmentId": "SHP-20042",
+    "timestamp": "2026-08-03T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Miami",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20042",
+    "SK": "EVENT#2026-08-03T16:00:00Z",
+    "shipmentId": "SHP-20042",
+    "timestamp": "2026-08-03T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Istanbul",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20042",
+    "SK": "EVENT#2026-08-03T20:00:00Z",
+    "shipmentId": "SHP-20042",
+    "timestamp": "2026-08-03T20:00:00Z",
+    "eventType": "Current Status",
+    "location": "Istanbul",
+    "details": "In Transit"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20043",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20043",
+    "origin": "Atlanta",
+    "destination": "Madrid",
+    "carrier": "FedEx",
+    "status": "Delayed",
+    "currentLocation": "Atlanta",
+    "eta": "2026-08-07T20:00:00Z",
+    "slaDeadline": "2026-08-06T12:00:00Z",
+    "slaRisk": "High",
+    "delayReason": "Mechanical issue"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20043",
+    "SK": "EVENT#2026-08-01T08:00:00Z",
+    "shipmentId": "SHP-20043",
+    "timestamp": "2026-08-01T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Atlanta",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20043",
+    "SK": "EVENT#2026-08-01T10:00:00Z",
+    "shipmentId": "SHP-20043",
+    "timestamp": "2026-08-01T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Atlanta",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20043",
+    "SK": "EVENT#2026-08-01T12:00:00Z",
+    "shipmentId": "SHP-20043",
+    "timestamp": "2026-08-01T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Atlanta",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20043",
+    "SK": "EVENT#2026-08-01T16:00:00Z",
+    "shipmentId": "SHP-20043",
+    "timestamp": "2026-08-01T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Atlanta",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20043",
+    "SK": "EVENT#2026-08-01T20:00:00Z",
+    "shipmentId": "SHP-20043",
+    "timestamp": "2026-08-01T20:00:00Z",
+    "eventType": "Delay Reported",
+    "location": "Atlanta",
+    "details": "Mechanical issue"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20044",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20044",
+    "origin": "San Francisco",
+    "destination": "Dubai",
+    "carrier": "UPS",
+    "status": "Delayed",
+    "currentLocation": "Seattle Airport",
+    "eta": "2026-08-07T15:00:00Z",
+    "slaDeadline": "2026-08-06T22:00:00Z",
+    "slaRisk": "High",
+    "delayReason": "Airport delay"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20044",
+    "SK": "EVENT#2026-08-02T08:00:00Z",
+    "shipmentId": "SHP-20044",
+    "timestamp": "2026-08-02T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "San Francisco",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20044",
+    "SK": "EVENT#2026-08-02T10:00:00Z",
+    "shipmentId": "SHP-20044",
+    "timestamp": "2026-08-02T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "San Francisco",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20044",
+    "SK": "EVENT#2026-08-02T12:00:00Z",
+    "shipmentId": "SHP-20044",
+    "timestamp": "2026-08-02T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "San Francisco",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20044",
+    "SK": "EVENT#2026-08-02T16:00:00Z",
+    "shipmentId": "SHP-20044",
+    "timestamp": "2026-08-02T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Seattle Airport",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20044",
+    "SK": "EVENT#2026-08-02T20:00:00Z",
+    "shipmentId": "SHP-20044",
+    "timestamp": "2026-08-02T20:00:00Z",
+    "eventType": "Delay Reported",
+    "location": "Seattle Airport",
+    "details": "Airport delay"
+  },
+  {
+    "PK": "SHIPMENT#SHP-20045",
+    "SK": "METADATA",
+    "shipmentId": "SHP-20045",
+    "origin": "Amsterdam",
+    "destination": "Johannesburg",
+    "carrier": "KLM Cargo",
+    "status": "At Risk",
+    "currentLocation": "Brussels",
+    "eta": "2026-08-07T08:00:00Z",
+    "slaDeadline": "2026-08-06T16:00:00Z",
+    "slaRisk": "High",
+    "delayReason": ""
+  },
+  {
+    "PK": "SHIPMENT#SHP-20045",
+    "SK": "EVENT#2026-08-03T08:00:00Z",
+    "shipmentId": "SHP-20045",
+    "timestamp": "2026-08-03T08:00:00Z",
+    "eventType": "Shipment Created",
+    "location": "Amsterdam",
+    "details": "Shipment created."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20045",
+    "SK": "EVENT#2026-08-03T10:00:00Z",
+    "shipmentId": "SHP-20045",
+    "timestamp": "2026-08-03T10:00:00Z",
+    "eventType": "Picked Up",
+    "location": "Amsterdam",
+    "details": "Shipment picked up."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20045",
+    "SK": "EVENT#2026-08-03T12:00:00Z",
+    "shipmentId": "SHP-20045",
+    "timestamp": "2026-08-03T12:00:00Z",
+    "eventType": "Departed Facility",
+    "location": "Amsterdam",
+    "details": "Shipment departed facility."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20045",
+    "SK": "EVENT#2026-08-03T16:00:00Z",
+    "shipmentId": "SHP-20045",
+    "timestamp": "2026-08-03T16:00:00Z",
+    "eventType": "Arrived Hub",
+    "location": "Brussels",
+    "details": "Shipment arrived at hub."
+  },
+  {
+    "PK": "SHIPMENT#SHP-20045",
+    "SK": "EVENT#2026-08-03T20:00:00Z",
+    "shipmentId": "SHP-20045",
+    "timestamp": "2026-08-03T20:00:00Z",
+    "eventType": "SLA Risk Identified",
+    "location": "Brussels",
+    "details": "At Risk"
+  }
+]

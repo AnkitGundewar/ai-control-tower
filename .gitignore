@@ -1,19 +1,27 @@
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
+*.zip
+*.sh
+
+# Virtual Environment
 .venv/
+venv/
 
-# Node
-node_modules/
-
-# Environment
+# Environment Variables
 .env
 
 # macOS
 .DS_Store
 
-# Vite
-dist/
+# VS Code
+.vscode/
 
-# Logs
-*.log
+# PyCharm
+.idea/
+
+# Build
+build/
+dist/
+*.egg-info/
