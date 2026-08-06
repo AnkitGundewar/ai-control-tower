@@ -1,58 +1,135 @@
-Hi there! Built out this AI Control Tower Dashboard over the past few days and it was a tedious job. So I am not going to go much into details 
-and simply give you small commands to run different aspects of this project in your local machine.
+# 🚀 Getting Started
 
+Clone the repository:
 
-# Setup
+```bash
+git clone https://github.com/AnkitGundewar/ai-control-tower.git
+cd ai-control-tower
+```
+
 ---
 
+# Prerequisites
 
-Just clone this repository as it is and I'll give terminal commands from there. 
+Before running the application, ensure you have:
 
-P.S.: This project uses Amazon services but if you're just building the dashboard - You only require a DynamoDB table (or a local dataset repository) and any model from Amazon Bedrock. I have used "anthropic.claude-sonnet-4-6" but you can choose whichever model you want.
+- Python 3.13+
+- Node.js 20+
+- npm
+- AWS Account
+- Amazon Bedrock model access
+- Amazon DynamoDB table
+- Amazon S3 bucket (optional, if using the ingestion workflow)
 
+The backend uses Amazon Bedrock for AI inference. This project was developed using:
 
-### Backend
+```
+anthropic.claude-sonnet-4-6
+```
+
+although any supported Bedrock model can be configured.
+
 ---
-If you're running this locally and just want a backend for your dashboard and nothing more than that. 
-From the project root:
 
+# Backend
+
+Navigate to the backend:
+
+```bash
 cd backend
+```
 
-<strong> set up your .venv (For packages) and .env (For environment variables) </strong>
+Create and activate a virtual environment.
 
+macOS/Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Windows
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
+Create a `.env` file and configure the required environment variables.
+
+Start the FastAPI server:
+
+```bash
 uvicorn app.main:app --reload
+```
 
-Click on the link/docs (http://127.0.0.1:8000/docs) and you can test and debug different backend features. 
+Swagger documentation will be available at:
 
+```
+http://127.0.0.1:8000/docs
+```
 
-### Frontend
+The backend provides:
+
+- Shipment APIs
+- AI Analysis APIs
+- Executive Summary APIs
+- Dashboard APIs
+- AI Chat APIs
+
 ---
-Rejoice. You don't have to deal with a virtual environment here. From project root:
 
-cd frontend 
+# Frontend
 
-npm create vite@latest . -- --template react 
+Navigate to the frontend:
 
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
 
+Start the development server:
+
+```bash
 npm run dev
+```
 
-(http://localhost:5173)
+The application will be available at:
 
-Now it should ideally give you a loading page with a circular loader and you are on the right track. The dashboard utilizes a bunch of AI and non-AI features so bear with me. 
+```
+http://localhost:5173
+```
 
-- KPI Card: To indicate total, delayed, high-risk, on time KPIs for shipments in the dataset. 
-- Executive summary - AI summary of all the shipments in the dataset
-- Global AI Chat - To answer any questions you might have regarding generic shipments. (Eg. Which shipments should I prioritize?)
-- Operational Alerts - Lists all the hazards the shipments in your dataset are going through
-- Search bar - Allows you to actively search using any of the mentioned criteria (Shipment ID, Origin, Destination, Carrier Service, Status)
-- Dashboard Grid: Lists all the shipments in your dataset with some information for the dashboard
+After the frontend loads, the dashboard provides:
 
-Now if you click on a shipment:
-Dashboard Drawer - Gives you information about the selected shipment. Such as:
-  - Shipment Timeline - Order of events leading up to current status of shipment
-  - AI Analyze - Gives an AI analysis about the current condition of the shipment: with Risk, Root Cause Analysis, Recommendation action going forward and a summary of information collected about the shipment.
-  - Shipment AI - Can answer any questions pertaining to the selected shipment. (Eg. Why is my shipment delayed? What caused the delay? By when can I expect delivery? etc.)
+### Dashboard Overview
 
+- KPI cards summarizing shipment health
+- Executive AI Summary
+- Operational Alerts
+- Global AI Chat
+- Shipment Search
+- Shipment Grid
+
+### Shipment Details
+
+Selecting a shipment opens a detailed drawer containing:
+
+- Shipment Timeline
+- AI Analysis
+- Risk Assessment
+- Root Cause Analysis
+- Recommended Actions
+- Executive Summary
+- Shipment-specific AI Chat
