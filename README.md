@@ -22,7 +22,7 @@ cd backend
 
 pip install -r requirements.txt
 
-unicorn app.main:app --reload
+uvicorn app.main:app --reload
 
 Click on the link/docs (http://127.0.0.1:8000/docs) and you can test and debug different backend features. 
 
