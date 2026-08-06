@@ -77,7 +77,12 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Create a `.env` file and configure the required environment variables.
+Create a `.env` file and configure the required environment variables:
+AWS_REGION=
+BEDROCK_MODEL_ID=
+DYNAMODB_TABLE=
+SNS_TOPIC_ARN=
+...
 
 Start the FastAPI server:
 
