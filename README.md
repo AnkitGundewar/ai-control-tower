@@ -1,3 +1,19 @@
+# AI Control Tower
+
+An AI-powered supply chain monitoring platform that combines a React dashboard, FastAPI backend, and a multi-agent AI orchestration system to analyze shipment health, identify operational risks, determine root causes, generate recommendations, and proactively notify stakeholders through an event-driven AWS architecture.
+
+## Features
+
+- Interactive shipment dashboard
+- AI-powered shipment analysis
+- Executive summaries
+- Shipment AI assistant
+- Dashboard AI assistant
+- Multi-agent orchestration
+- Event-driven monitoring
+- Automated email notifications
+- Serverless AWS deployment
+
 # 🚀 Getting Started
 
 Clone the repository:
