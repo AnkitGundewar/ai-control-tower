@@ -14,6 +14,7 @@ class AuthorizationGuardrail(BaseGuardrail):
         "manager",
         "executive",
         "admin",
+        "system",
     }
 
     @property
