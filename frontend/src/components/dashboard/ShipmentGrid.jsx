@@ -38,12 +38,7 @@ export default function ShipmentGrid({
       renderCell: (params) => (
         <StatusChip status={params.value} />
       ),
-    },
-    {
-      field: "estRisk",
-      headerName: "Risk",
-      flex: 1,
-    },
+    },    
   ];
 
   const rows = shipments.map((shipment) => ({
