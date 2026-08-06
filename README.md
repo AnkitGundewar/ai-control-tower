@@ -1,5 +1,5 @@
 Hi there! Built out this AI Control Tower Dashboard over the past few days and it was a tedious job. So I am not going to go much into details 
-and simply give you small commands to run different aspects of this project in your machine.
+and simply give you small commands to run different aspects of this project in your local machine.
 
 
 # Setup
