@@ -133,3 +133,40 @@ Selecting a shipment opens a detailed drawer containing:
 - Recommended Actions
 - Executive Summary
 - Shipment-specific AI Chat
+
+
+                                   S3
+                                   │
+                                   ▼
+                           Ingestion Lambda
+                                   │
+                                   ▼
+                            DynamoDB Table
+                                   │
+                                   ▼
+                                FastAPI
+                                   │
+                                   ▼
+                             Supervisor
+                                   │
+      ┌────────────────────────────┼────────────────────────────┐
+      │                            │                            │
+      ▼                            ▼                            ▼                           
+      Tracking Agent              Risk Agent               Root Cause Agent
+      │                            │                            │
+      └────────────────────────────┴┬───────────────────────────┘
+                                    │                         
+                                    ▼                         
+                           Recommendation Agent
+                                    │
+                                    ▼
+                          Executive Summary Agent
+                                    │
+                        ┌───────────┴───────────┐
+                        │                       │
+                        ▼                       ▼
+               Shipment AI Agent        Executive Summary
+                        │                       │
+                        └───────────┬───────────┘
+                                    ▼
+                         React Dashboard Components
